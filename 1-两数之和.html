@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>两数之和</title>
+</head>
+
+<body>
+    <script>
+        // 给定一个整数数组 nums  和一个整数目标值 target， 请你在该数组中找出 和为目标值 的那  两个  整数， 并返回它们的数组下标。
+        // 你可以假设每种输入只会对应一个答案。 但是， 数组中同一个元素不能使用两遍。
+        // 你可以按任意顺序返回答案。
+
+        // 示例 1：
+        // 输入： nums = [2, 7, 11, 15], target = 9
+        // 输出：[0, 1]
+        // 解释： 因为 nums[0] + nums[1] == 9， 返回[0, 1]。
+        // 示例 2：
+
+        // 输入： nums = [3, 2, 4], target = 6
+        // 输出：[1, 2]
+        // 示例 3：
+
+        // 输入： nums = [3, 3], target = 6
+        // 输出：[0, 1]
+
+
+
+        //解法一:暴力枚举
+        /**
+         * @param {number[]} nums
+         * @param {number} target
+         * @return {number[]}
+         */
+        function twoSum(nums, target) {
+            let len = nums.length;
+            for (let i = 0; i < len; i++) {
+                for (let j = 1; j < len; j++) {
+                    if (nums[i] + nums[j] === target) {
+                        return [i, j]
+                    }
+                }
+            }
+        }
+        let nums = [1, 2, 3, 4, 5, 7, 8, 9];
+        console.log(twoSum(nums, 5));
+        // 复杂度分析:
+        // 时间复杂度：O(N^2) ,其中 N 是数组中的元素数量。最坏情况下数组中任意两个数都要被匹配一次.
+        // 空间复杂度：O(1)。
+
+        /**
+         * @param {number[]} nums
+         * @param {number} target
+         * @return {number[]}
+         */
+        var twoSum = function(nums, target) {
+            let i = nums.length;
+            while (i > 1) {
+                let last = nums.pop();
+                if (nums.indexOf(target - last) > -1) {
+                    return [nums.indexOf(target - last), nums.length]
+                }
+                i--
+            }
+        };
+
+
+
+
+        // 解法二:哈希法
+        // 思路
+        // 创建媒介所（字典表Map）
+        // 遍历数组，匹配符合信息的目标值 taget - currentValue
+        // 匹配成功返回两个数值下标
+        // 匹配失败就将选手的信息放入媒介所
+        // 题解
+
+        var twoSum = (nums, target) => {
+            const prevNums = {}; // 存储出现过的数字，和对应的索引               
+
+            for (let i = 0; i < nums.length; i++) { // 遍历元素   
+                const curNum = nums[i]; // 当前元素   
+                const targetNum = target - curNum; // 满足要求的目标元素   
+                const targetNumIndex = prevNums[targetNum]; // 在prevNums中获取目标元素的索引
+                if (targetNumIndex !== undefined) { // 如果存在，直接返回 [目标元素的索引,当前索引]
+                    return [targetNumIndex, i];
+                } else { // 如果不存在，说明之前没出现过目标元素
+                    prevNums[curNum] = i; // 存入当前的元素和对应的索引
+                }
+            }
+        }
+
+
+
+
+        var twoSum = function(nums, target) {
+            if (!nums) return [];
+            // 创建字典表
+            const m = new Map();
+            // 遍历nums数组
+            for (let i = 0; i < nums.length; i++) {
+                // 获取当前值
+                const n = nums[i];
+                // 获取对当前与该值匹配的数值
+                const n2 = target - nums[i];
+                // 判断目标值是否在字典中
+                if (m.has(n2)) {
+                    // 是，在返回目标值的坐标和当前数值的坐标
+                    return [m.get(n2), i]
+                }
+                // 不在字典中，则放入字典，key为数值，value为下标
+                m.set(n, i)
+            }
+        };
+
+        //复杂度分析
+
+        // 时间复杂度: O(N), 其中 N 是数组中的元素数量。对于每一个元素 x，我们可以 O(1) 地寻找 target - x。
+        // 空间复杂度: O(N), 其中 NN 是数组中的元素数量。主要为哈希表的开销。
+
+
+        // 更改
+    </script>
+</body>
+
+</html>
